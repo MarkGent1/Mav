@@ -1,0 +1,6 @@
+services:
+  mav.api:
+    image: ${DOCKER_REGISTRY-}mavapi
+    build:
+      context: .
+      dockerfile: src/Mav.Api/Dockerfile

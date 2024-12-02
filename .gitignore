@@ -1,0 +1,21 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/Mav.Api/bin/Debug/net8.0
+/src/Mav.Api/obj
+/src/Mav.Domain/bin/Debug/netstandard2.1
+/src/Mav.Domain/obj
+/src/Mav.EventListener/bin/Debug/net8.0
+/src/Mav.EventListener/obj
+/src/Mav.Infrastructure/bin/Debug/net8.0
+/src/Mav.Infrastructure/obj
+/tests/Mav.Api.Tests.Component/bin/Debug/net8.0
+/tests/Mav.Api.Tests.Component/obj
+/tests/Mav.EventListener.Tests.Component/bin/Debug/net8.0
+/tests/Mav.EventListener.Tests.Component/obj
+/tests/Mav.Tests.Shared/bin/Debug/net8.0
+/tests/Mav.Tests.Shared/obj
+/bin/Debug
+/obj/Debug

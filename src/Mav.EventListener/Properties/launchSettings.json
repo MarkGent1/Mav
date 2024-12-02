@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mav.EventListener": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
