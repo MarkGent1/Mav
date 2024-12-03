@@ -4,3 +4,8 @@ services:
     build:
       context: .
       dockerfile: src/Mav.Api/Dockerfile
+  mav.eventlistener:
+    image: ${DOCKER_REGISTRY-}eventlistener
+    build:
+      context: .
+      dockerfile: src/Mav.EventListener/Dockerfile

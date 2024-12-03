@@ -1,28 +1,32 @@
 # See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS vsdebug
 USER $APP_UID
 WORKDIR /app
-
+EXPOSE 80
+EXPOSE 443
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+
 WORKDIR /src
-COPY ["src/Mav.EventListener/Mav.EventListener.csproj", "src/Mav.EventListener/"]
-RUN dotnet restore "./src/Mav.EventListener/Mav.EventListener.csproj"
-COPY . .
-WORKDIR "/src/src/Mav.EventListener"
-RUN dotnet build "./Mav.EventListener.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Mav.EventListener.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+COPY ["src/Mav.EventListener/Mav.EventListener.csproj", "Mav.EventListener/"]
+COPY ["src/Mav.Infrastructure/Mav.Infrastructure.csproj", "Mav.Infrastructure/"]
+COPY ["src/Mav.Domain/Mav.Domain.csproj", "Mav.Domain/"]
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
+RUN dotnet restore "Mav.EventListener/Mav.EventListener.csproj" -r linux-x64 -v n --configfile nuget.config
+RUN dotnet restore "Mav.Infrastructure/Mav.Infrastructure.csproj" -r linux-x64 -v n --configfile nuget.config
+RUN dotnet restore "Mav.Domain/Mav.Domain.csproj" -r linux-x64 -v n --configfile nuget.config
+
+RUN rm ./nuget.config
+COPY ["src/", "."]
+
+WORKDIR "Mav.EventListener"
+RUN dotnet oublish "Mav.EventListener.csproj" -v n -c Release -o /app -r linux-x64 --no-restore /p:Version=${VERSION}
+
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Mav.EventListener.dll"]
+COPY --from=build /app .
+ENTRYPOINT ["./Mav.EventListener"]

@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.18.2" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.22.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+    <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mav.Domain\Mav.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiClients\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Context\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="ServiceBus\Configuration\" />
+    <Folder Include="ServiceBus\Exceptions\" />
+    <Folder Include="ServiceBus\Implementations\" />
+    <Folder Include="ServiceBus\IoC\" />
+    <Folder Include="ServiceBus\NewFolder\" />
+    <Folder Include="ServiceBus\Publishers\" />
+    <Folder Include="ServiceBus\Processors\" />
+    <Folder Include="Telemetry\" />
+    <Folder Include="Serlializers\" />
+    <Folder Include="Requests\" />
+    <Folder Include="Queries\" />
+  </ItemGroup>
+
+</Project>
